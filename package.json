@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check js/main.js && node --check js/display.js && node --check js/data.js && node --check js/ui.js && node --check js/navigation.js && node --check js/transitions.js && node --check js/notification-data.js && node --check js/notifications.js && node --check js/notification-ui.js && node --check js/apps/communication.js && node --check js/apps/personal.js && node --check js/apps/media.js && node --check js/messages/data.js && node --check js/messages/replies.js && node --check js/messages/store.js && node --check js/messages/view.js && node --check js/session.js && node --check js/runtime-data.js && node --check js/phone/data.js && node --check js/phone/scenarios.js && node --check js/phone/events.js && node --check js/phone/store.js && node --check js/phone/view.js && node --check js/phone/call-ui.js"
+  }
+}

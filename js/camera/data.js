@@ -1,0 +1,1 @@
+export const cameraSettings={frontPreview:'assets/camera-front.svg',backPreview:'assets/camera-back.svg',defaultFacing:'back',defaultFlash:false,defaultZoom:1,zoomLevels:[0.5,1,2],captureDescription:'카메라 시뮬레이션으로 저장한 가상 사진'};

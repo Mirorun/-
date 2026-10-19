@@ -1,0 +1,3 @@
+export const weather={location:'서울 (샘플)',date:'2028-07-03',temperature:27,condition:'구름 조금',symbol:'cloud-sun',high:29,low:23,precipitation:20,humidity:68,windSpeed:2.4,windDirection:'남서풍',
+ hourly:[{time:'지금',temperature:27,condition:'구름 조금',precipitation:20},{time:'11시',temperature:28,condition:'구름 조금',precipitation:10},{time:'12시',temperature:29,condition:'맑음',precipitation:10},{time:'13시',temperature:29,condition:'맑음',precipitation:10},{time:'14시',temperature:28,condition:'구름 조금',precipitation:20},{time:'15시',temperature:28,condition:'구름 조금',precipitation:20}],
+ daily:Array.from({length:7},(_,i)=>({date:'2028-07-'+String(i+3).padStart(2,'0'),condition:i===2?'비':'구름 조금',low:[23,23,22,23,24,23,22][i],high:[29,30,27,29,30,29,28][i],precipitation:i===2?60:20}))};

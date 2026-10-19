@@ -1,0 +1,11 @@
+/_phase*/
+/_deploy*/
+/_site/
+/node_modules/
+*.zip
+*.log
+/.env
+/.env.*
+/*-test-results.json
+/*-trace.json
+/*.png
