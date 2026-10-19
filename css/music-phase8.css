@@ -1,0 +1,6 @@
+.music-search{display:flex;gap:2cqw;margin:0 0 5cqw;background:#efeff2;border-radius:3cqw;padding:2cqw 3cqw;align-items:center}
+.music-search input{min-width:0;flex:1;border:0;background:transparent;font:inherit;font-size:3.8cqw;outline-offset:3px;color:#222}
+.music-search button{color:#df345a;flex:none;font-size:3.4cqw;padding:1cqw}
+.music-play{color:inherit;text-decoration:none;font-size:10cqw;padding:3cqw;display:grid;place-items:center}
+.music-transport a:focus-visible{outline:2px solid #df345a;border-radius:2cqw}
+.music-now small{overflow-wrap:anywhere}

@@ -1,4 +1,5 @@
 import {DeviceApps} from './device-apps.js';
+import {SessionEffects} from './audio/effects.js';
 import {storyClock} from './story-clock.js';
 import {WebApps} from './web/view.js';
 import {KakaoStore} from './kakao/store.js';
@@ -37,6 +38,7 @@ const noticeUI=new NotificationUI(phone,screen,notifications,{open:openNotificat
 const messagesUI=new MessagesUI(screen,messageStore,{active:()=>state==='app'&&app==='messages'&&!callUI.isFull()?navigation.get(app).detail:undefined,busy:()=>motion.busy||noticeUI.centerOpen||callUI.isFull()});
 const phoneStore=new PhoneStore();
 const callUI=new CallUI(phone,screen,phoneStore,{changed:()=>syncOverlays(),busy:()=>motion.busy});
+const effects=new SessionEffects(callUI.audio,phone);
 const phoneUI=new PhoneUI(screen,phoneStore,{route:()=>navigation.get('phone'),navigate:detail=>navigate({detail}),tab:id=>{saveScroll();navigation.update('phone',{tab:id,detail:null,contact:null});navigation.apps.get('phone').stack=[];render();},refresh:()=>{saveScroll();render();},message:contact=>{if(contact){messageStore.ensureContact(contact);launchApp('messages',null,contact.messageThreadId||contact.id);}},busy:()=>motion.busy||noticeUI.centerOpen||callUI.isFull()});
 const kakaoUI=new KakaoUI(screen,kakaoStore,{active:()=>state==='app'&&app==='kakao'&&!callUI.isFull()?navigation.get(app).detail:undefined,busy:()=>motion.busy||noticeUI.centerOpen||callUI.isFull(),navigate:id=>navigate({detail:id}),refresh:()=>{saveScroll();render();}});
 const webApps=new WebApps(screen,{active:()=>state==='app'?app:null,busy:()=>motion.busy||noticeUI.centerOpen||callUI.isFull(),navigate:patch=>navigate(patch),refresh:()=>{navigation.saveScroll(app,screen.querySelector('.app-content'));render();}});
@@ -172,7 +174,8 @@ messageStore.subscribe(({kind,threadId})=>{
 kakaoStore.subscribe(({kind,threadId})=>{needsRefresh=true;if(!motion.busy&&!noticeUI.centerOpen&&!callUI.isFull()&&state==='app'&&app==='kakao'){kakaoUI.update(kind,threadId);if(navigation.get(app).detail===threadId)notifications.markThreadRead('kakao',threadId);}if(!refreshQueued){refreshQueued=true;queueMicrotask(()=>{refreshQueued=false;flushNotifications();});}});
 function resetMessages(){location.reload();}
 window.yangyangMessages=Object.freeze({reset:resetMessages,getState:()=>JSON.parse(JSON.stringify(messageStore.state))});
-notifications.subscribe(({reason})=>{
+notifications.subscribe(({reason,id})=>{
+  if(reason==='arrival'){const event=notifications.records().find(e=>e.id===id);if(event)effects.receive(event);}
   needsRefresh=true;
   if(!refreshQueued){refreshQueued=true;queueMicrotask(()=>{refreshQueued=false;flushNotifications();});}
 });
