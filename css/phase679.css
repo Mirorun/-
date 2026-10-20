@@ -1,0 +1,19 @@
+.phone.gesture-active{user-select:none;-webkit-user-select:none}
+.ig-carousel{position:relative;touch-action:pan-y pinch-zoom;overflow:hidden;background:#eee}
+.ig-carousel .web-photo{aspect-ratio:1;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.ig-media-count{position:absolute;top:3cqw;right:3cqw;border-radius:4cqw;padding:1cqw 2.5cqw;background:#2229;color:#fff;font-size:2.8cqw}
+.ig-carousel-controls{position:absolute;top:45%;left:2cqw;right:2cqw;display:flex;justify-content:space-between;pointer-events:none}
+.ig-carousel-controls button{pointer-events:auto;border-radius:50%;background:#fff9;width:8cqw;height:8cqw;display:grid;place-items:center;padding:0;font-size:7cqw;line-height:1}
+.ig-carousel-controls button:disabled{opacity:.2}
+.ig-zoom{position:absolute;bottom:3cqw;right:3cqw;background:#fff9;border-radius:50%;width:9cqw;height:9cqw;padding:0;font-size:6cqw}
+.ig-post-body .ig-comment-link{display:inline-block;font-size:3.3cqw;margin:0 3cqw 1cqw 0}
+.ig-post-body .ig-save{float:right;font-size:6cqw}.ig-save[aria-pressed=true]{color:#161616;font-weight:700}
+.ig-comments time{font-size:2.6cqw;color:#888}.ig-comments h3{font-size:4cqw}
+.ig-profile>button{padding:0;background:transparent}.ig-profile-label{text-align:center;padding:3cqw;font-size:3.5cqw;border-top:1px solid #eee;border-bottom:1px solid #eee}
+.ig-grid .web-photo{aspect-ratio:1;object-fit:cover}.ig-grid button{min-width:0}
+.ig-media-view{z-index:35}.ig-media-view>img{max-width:100%;max-height:78%;object-fit:contain;touch-action:pan-x pan-y pinch-zoom}
+.p5-photo-surface{touch-action:pan-y pinch-zoom;overflow:hidden}.p5-photo-surface.is-zoomed{overflow:auto;touch-action:pan-x pan-y pinch-zoom}
+.p5-photo-surface.is-zoomed>img{transform:scale(2);transform-origin:top left;max-width:none}
+.community-new{font-size:2cqw;color:#25998c;font-style:normal;margin-left:2cqw;font-weight:700}
+.community-post,.ig-post,.web-comment{overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){.gesture-active *{scroll-behavior:auto!important}}

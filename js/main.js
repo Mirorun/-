@@ -1,3 +1,4 @@
+import {PhoneGestures} from './gestures.js';
 import {DeviceApps} from './device-apps.js';
 import {SessionEffects} from './audio/effects.js';
 import {storyClock} from './story-clock.js';
@@ -148,7 +149,7 @@ async function navigate(patch,kind='forward'){
   if(motion.busy||state!=='app')return;saveScroll();if(app==='messages'){const area=screen.querySelector('.msg-timeline');const id=navigation.get(app).detail;if(area&&id)messagesUI.positions.set(id,area.scrollTop);}
   await transition(kind,()=>{if(kind==='back')navigation.back(app);else navigation.push(app,patch);});
 }
-async function back(){if(callUI.isFull()){callUI.minimize();return;}if(state==='app'&&app==='safari'&&webApps.back())return;if(state==='app'&&navigation.canBack(app))await navigate(null,'back');else await goHome();}
+async function back(){if(webApps.zoom){webApps.zoom=null;render();return;}if(state==='app'&&app==='photos'&&libraryApps.photoZoom){libraryApps.photoZoom=false;render();return;}if(callUI.isFull()){callUI.minimize();return;}if(state==='app'&&app==='safari'&&webApps.back())return;if(state==='app'&&navigation.canBack(app))await navigate(null,'back');else await goHome();}
 function key(n){if(callUI.isFull())return;if(unlockTimer||motion.busy||noticeUI.centerOpen)return;if(n==='⌫')pin=pin.slice(0,-1);else if(pin.length<6)pin+=n;render();if(pin.length===6)unlockTimer=setTimeout(async()=>{unlockTimer=null;if(state!=='pin')return;state='home';pin='';render();announce('잠금 해제되었습니다.');if(pendingLink){const id=pendingLink;pendingLink=null;await openNotification(id);}else flushNotifications();},200);}
 async function openNotification(id){
   const event=notifications.records().find(e=>e.id===id);if(!event)return;
@@ -237,6 +238,7 @@ home.addEventListener('click',e=>{if(e.detail===0||(e.pointerType||lastPointerTy
 document.addEventListener('keydown',e=>{if(motion.busy)return;if(callUI.isFull()){if(e.key==='Escape'){e.preventDefault();callUI.minimize();}return;}if(e.key==='Escape'){e.preventDefault();if(noticeUI.centerOpen)noticeUI.closeCenter();else back();}else if(state==='pin'&&(/^\d$/.test(e.key)||e.key==='Backspace')){e.preventDefault();key(e.key==='Backspace'?'⌫':e.key);}});
 window.addEventListener('resize',()=>{for(const animation of motion.animations)animation.cancel();});
 phone.style.setProperty('--home-wallpaper','url("'+new URL(appearance.wallpaper,document.baseURI).href.replaceAll('"','%22')+'")');
+const phoneGestures=new PhoneGestures(phone,{allowed:()=>state==='app'&&!motion.busy&&!noticeUI.centerOpen&&!callUI.isFull()&&!webApps.zoom,back,home:goHome});
 syncMessageData();render();notifications.start();messageStore.start();kakaoStore.start();sessionEvents.start();phoneStore.startEvents();
 
 // A BFCache restoration resumes a previous document; reload for a fresh visit.
